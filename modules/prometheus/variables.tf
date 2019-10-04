@@ -71,7 +71,7 @@ variable "additional_cidr_blocks" {
 variable "tags" {
   description = "Tags to apply to resources"
 
-  default {
+  default = {
     Terraform = "true"
   }
 }

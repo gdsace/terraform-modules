@@ -144,7 +144,7 @@ variable "source_hostname_key" {
 variable "tags" {
   description = "Tags to apply to resources"
 
-  default {
+  default = {
     Terraform = "true"
   }
 }
