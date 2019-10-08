@@ -20,7 +20,7 @@ EOF
 }
 
 module "vault" {
-  source = "github.com/hashicorp/terraform-aws-vault.git//modules/vault-cluster?ref=v0.12.2"
+  source = "github.com/hashicorp/terraform-aws-vault.git//modules/vault-cluster?ref=v0.13.3"
 
   cluster_name  = var.vault_cluster_name
   cluster_size  = var.vault_cluster_size
@@ -59,7 +59,7 @@ module "vault" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "vault_iam_policies_servers" {
-  source = "github.com/hashicorp/terraform-aws-consul.git//modules/consul-iam-policies?ref=v0.6.1"
+  source = "github.com/hashicorp/terraform-aws-consul.git//modules/consul-iam-policies?ref=v0.7.3"
 
   iam_role_id = module.vault.iam_role_id
 }
@@ -70,7 +70,7 @@ module "vault_iam_policies_servers" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "template_file" "user_data_vault_cluster" {
-  template = "${file("${path.module}/user_data/user-data-vault.sh")}"
+  template = file("${path.module}/user_data/user-data-vault.sh")
 
   vars = {
     aws_region               = data.aws_region.current.name

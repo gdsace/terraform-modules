@@ -26,7 +26,7 @@ resource "aws_lb" "internal" {
 
 resource "aws_lb_listener" "internal_http" {
   load_balancer_arn = aws_lb.internal.arn
-  port              = "80"
+  port              = 80
   protocol          = "HTTP"
 
   # Redirect to HTTPS
@@ -43,7 +43,7 @@ resource "aws_lb_listener" "internal_http" {
 
 resource "aws_lb_listener" "internal_https" {
   load_balancer_arn = aws_lb.internal.arn
-  port              = "443"
+  port              = 443
   protocol          = "HTTPS"
   ssl_policy        = var.elb_ssl_policy
   certificate_arn   = var.internal_lb_certificate_arn
@@ -57,10 +57,10 @@ resource "aws_lb_listener" "internal_https" {
 
 resource "aws_lb_target_group" "sink" {
   name_prefix          = "sink"
-  port                 = "80"
+  port                 = 80
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
-  deregistration_delay = "30"            # It doesn't matter
+  deregistration_delay = 30           # It doesn't matter
 
   tags = merge(var.tags, map("Name", format("%s-sink", var.internal_lb_name)))
 
@@ -102,7 +102,7 @@ resource "aws_security_group_rule" "internal_https_incoming" {
 
 resource "aws_lb_listener_rule" "nomad_server" {
   listener_arn = aws_lb_listener.internal_https.arn
-  priority     = "1"
+  priority     = 1
 
   action {
     target_group_arn = aws_lb_target_group.nomad_server.arn
@@ -124,7 +124,7 @@ resource "aws_lb_target_group" "nomad_server" {
 
   health_check {
     healthy_threshold   = var.nomad_server_lb_healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.nomad_server_lb_timeout
     unhealthy_threshold = var.nomad_server_lb_unhealthy_threshold
     path                = "/v1/status/leader"
@@ -201,7 +201,7 @@ resource "aws_route53_record" "private_zone_nomad_rpc" {
 ##############################
 resource "aws_lb_listener_rule" "consul_server" {
   listener_arn = aws_lb_listener.internal_https.arn
-  priority     = "2"
+  priority     = 2
 
   action {
     target_group_arn = aws_lb_target_group.consul_servers.arn
@@ -223,7 +223,7 @@ resource "aws_lb_target_group" "consul_servers" {
 
   health_check {
     healthy_threshold   = var.consul_lb_healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.consul_lb_timeout
     unhealthy_threshold = var.consul_lb_unhealthy_threshold
     path                = "/v1/status/leader"
@@ -299,7 +299,7 @@ resource "aws_route53_record" "private_zone_consul" {
 ##############################
 resource "aws_lb_listener_rule" "vault" {
   listener_arn = aws_lb_listener.internal_https.arn
-  priority     = "3"
+  priority     = 3
 
   action {
     target_group_arn = aws_lb_target_group.vault.arn
@@ -321,7 +321,7 @@ resource "aws_lb_target_group" "vault" {
 
   health_check {
     healthy_threshold   = var.vault_lb_healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.vault_lb_timeout
     unhealthy_threshold = var.vault_lb_unhealthy_threshold
     protocol            = "HTTPS"

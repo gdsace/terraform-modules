@@ -54,7 +54,8 @@ variable "clients_max" {
 variable "nomad_clients_services_inbound_cidr" {
   description = "A list of CIDR-formatted IP address ranges (in addition to the VPC range) from which the services hosted on Nomad clients on ports 20000 to 32000 will accept connections from."
   type        = list(string)
-  default     = []
+
+  default = []
 }
 
 variable "user_data" {
@@ -88,7 +89,8 @@ variable "associate_public_ip_address" {
 variable "allowed_ssh_cidr_blocks" {
   description = "A list of CIDR-formatted IP address ranges from which the EC2 Instances will allow SSH connections"
   type        = list(string)
-  default     = []
+
+  default = []
 }
 
 variable "client_node_class" {

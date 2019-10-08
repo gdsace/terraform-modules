@@ -8,7 +8,7 @@ locals {
 }
 
 module "consul_servers" {
-  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-cluster?ref=v0.6.1"
+  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-cluster?ref=v0.7.3"
 
   cluster_name  = var.consul_cluster_name
   cluster_size  = var.consul_cluster_size
@@ -43,7 +43,7 @@ module "consul_servers" {
 # --------------------------------------------------------------------------------------------------
 
 data "template_file" "user_data_consul_server" {
-  template = "${file("${path.module}/user_data/user-data-consul-server.sh")}"
+  template = file("${path.module}/user_data/user-data-consul-server.sh")
 
   vars = {
     cluster_tag_key   = var.cluster_tag_key

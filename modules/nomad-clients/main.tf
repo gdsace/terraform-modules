@@ -13,7 +13,7 @@ data "aws_vpc" "selected" {
 # --------------------------------------------------------------------------------------------------
 
 module "nomad_clients" {
-  source = "github.com/hashicorp/terraform-aws-nomad//modules/nomad-cluster?ref=v0.4.5"
+  source = "github.com/hashicorp/terraform-aws-nomad//modules/nomad-cluster?ref=v0.5.0"
 
   asg_name          = var.cluster_name
   cluster_name      = var.cluster_name
@@ -48,7 +48,7 @@ module "nomad_clients" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "consul_iam_policies_clients" {
-  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-iam-policies?ref=v0.6.1"
+  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-iam-policies?ref=v0.7.3"
 
   iam_role_id = module.nomad_clients.iam_role_id
 }
@@ -59,7 +59,7 @@ module "consul_iam_policies_clients" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 data "template_file" "user_data_nomad_client" {
-  template = "${file("${path.module}/user_data.sh")}"
+  template = file("${path.module}/user_data.sh")
 
   vars = {
     client_node_class = var.client_node_class
