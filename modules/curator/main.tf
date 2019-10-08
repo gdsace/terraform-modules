@@ -1,6 +1,6 @@
 locals {
-  actions = "${file("${path.module}/templates/actions.yml")}"
-  config  = "${file("${path.module}/templates/config.yml")}"
+  actions = file("${path.module}/templates/actions.yml")
+  config  = file("${path.module}/templates/config.yml")
 }
 
 data "aws_availability_zones" "available" {}
@@ -8,7 +8,7 @@ data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
 
 data "template_file" "jobspec" {
-  template = "${file("${path.module}/templates/curator.nomad")}"
+  template = file("${path.module}/templates/curator.nomad")
 
   vars = {
     region = data.aws_region.current.name
