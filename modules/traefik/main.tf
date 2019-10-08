@@ -22,7 +22,7 @@ resource "nomad_job" "traefik" {
 }
 
 data "template_file" "traefik_jobspec" {
-  template = "${file("${path.module}/jobs/traefik.nomad")}"
+  template = file("${path.module}/jobs/traefik.nomad")
 
   vars = {
     region     = data.aws_region.current.name
@@ -58,19 +58,19 @@ resource "aws_route53_record" "traefik_ui" {
 
 resource "aws_lb_target_group" "traefik_ui" {
   name                 = "${var.internal_lb_name}-ui"
-  port                 = "8080"
+  port                 = 8080
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = var.deregistration_delay
 
   health_check {
     healthy_threshold   = var.healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.timeout
     unhealthy_threshold = var.unhealthy_threshold
     interval            = var.interval
     path                = "/ping"
-    port                = "8080"
+    port                = 8080
   }
 
   stickiness {

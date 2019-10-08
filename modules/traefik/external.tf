@@ -115,7 +115,7 @@ resource "aws_lb_listener" "http_external" {
 
 resource "aws_lb_listener" "https_external" {
   load_balancer_arn = aws_lb.external.arn
-  port              = "443"
+  port              = 443
   protocol          = "HTTPS"
   ssl_policy        = var.elb_ssl_policy
   certificate_arn   = var.external_certificate_arn
@@ -128,19 +128,19 @@ resource "aws_lb_listener" "https_external" {
 
 resource "aws_lb_target_group" "external" {
   name_prefix          = "tfk"
-  port                 = "80"
+  port                 = 80
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = var.deregistration_delay
 
   health_check {
     healthy_threshold   = var.healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.timeout
     unhealthy_threshold = var.unhealthy_threshold
     interval            = var.interval
     path                = "/ping"
-    port                = "8080"
+    port                = 8080
   }
 
   stickiness {

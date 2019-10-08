@@ -99,19 +99,19 @@ resource "aws_security_group_rule" "nomad_client_internal_health_check" {
 
 resource "aws_lb_target_group" "internal" {
   name_prefix          = "tfk-i"
-  port                 = "81"
+  port                 = 81
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
   deregistration_delay = var.deregistration_delay
 
   health_check {
     healthy_threshold   = var.healthy_threshold
-    matcher             = "200"
+    matcher             = 200
     timeout             = var.timeout
     unhealthy_threshold = var.unhealthy_threshold
     interval            = var.interval
     path                = "/ping"
-    port                = "8080"
+    port                = 8080
   }
 
   stickiness {
@@ -133,7 +133,7 @@ resource "aws_autoscaling_attachment" "internal" {
 
 resource "aws_lb_listener" "internal_http" {
   load_balancer_arn = aws_lb.internal.arn
-  port              = "80"
+  port              = 80
   protocol          = "HTTP"
 
   # Redirect to HTTPS
@@ -150,7 +150,7 @@ resource "aws_lb_listener" "internal_http" {
 
 resource "aws_lb_listener" "internal_https" {
   load_balancer_arn = aws_lb.internal.arn
-  port              = "443"
+  port              = 443
   protocol          = "HTTPS"
   ssl_policy        = var.elb_ssl_policy
   certificate_arn   = var.internal_certificate_arn
