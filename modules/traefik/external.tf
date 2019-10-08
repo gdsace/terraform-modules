@@ -4,7 +4,7 @@
 
 resource "aws_lb" "external" {
   name            = var.external_lb_name
-  security_groups = aws_security_group.external_lb.id
+  security_groups = [aws_security_group.external_lb.id]
   subnets         = var.lb_external_subnets
 
   access_logs {
