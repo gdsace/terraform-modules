@@ -9,7 +9,7 @@ locals {
 # Internal Load balancer
 resource "aws_lb" "internal" {
   name            = var.internal_lb_name
-  security_groups = aws_security_group.internal_lb.id
+  security_groups = [aws_security_group.internal_lb.id]
   subnets         = var.internal_lb_subnets
   internal        = true
 
