@@ -47,9 +47,7 @@ data "aws_iam_policy_document" "logs_s3" {
       "s3:ListBucket",
     ]
 
-    resources = [
-      aws_s3_bucket.logs.arn,
-    ]
+    resources = aws_s3_bucket.logs.*.arn
   }
 
   statement {
@@ -60,9 +58,7 @@ data "aws_iam_policy_document" "logs_s3" {
       "s3:PutObject",
     ]
 
-    resources = [
-      "${aws_s3_bucket.logs.arn}/*",
-    ]
+    resources = formatlist("%s/*", aws_s3_bucket.logs.*.arn)
   }
 }
 

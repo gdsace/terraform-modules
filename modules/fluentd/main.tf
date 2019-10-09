@@ -14,7 +14,7 @@ data "template_file" "fluentd_tf_rendered_conf" {
 
     es6_support = var.es6_support
 
-    s3_bucket     = aws_s3_bucket.logs.id
+    s3_bucket     = var.logs_s3_enabled ? aws_s3_bucket.logs.*.id[0] : ""
     s3_region     = var.aws_region
     s3_prefix     = "logs/"
     storage_class = var.logs_s3_storage_class
