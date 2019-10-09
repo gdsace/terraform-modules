@@ -69,5 +69,5 @@ resource "aws_iam_policy" "logs_s3" {
   path        = "/"
   description = "IAM Policy to store logs in the archival S3 bucket"
 
-  policy = data.aws_iam_policy_document.logs_s3.json
+  policy = data.aws_iam_policy_document.logs_s3.*.json[0]
 }
