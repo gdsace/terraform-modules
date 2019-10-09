@@ -44,7 +44,7 @@ resource "aws_elasticsearch_domain" "es" {
   domain_name           = local.es_domain_name
   elasticsearch_version = var.es_version
 
-  cluster_config = {
+  cluster_config {
     instance_type            = var.es_instance_type
     instance_count           = var.es_instance_count
     dedicated_master_enabled = var.es_instance_count >= 10 ? true : false
