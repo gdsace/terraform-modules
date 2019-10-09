@@ -9,7 +9,7 @@ resource "vault_aws_secret_backend_role" "logs" {
   backend         = var.vault_sts_path
   credential_type = "federation_token"
 
-  policy_arn = aws_iam_policy.logs_s3.*.arn[0]
+  policy_arns = aws_iam_policy.logs_s3.*.arn
 }
 
 resource "vault_policy" "logs" {
