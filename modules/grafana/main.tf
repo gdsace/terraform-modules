@@ -36,14 +36,14 @@ data "template_file" "grafana_config" {
 }
 
 data "template_file" "grafana_jobspec" {
-  template = "${file("${path.module}/templates/grafana.nomad")}"
+  template = file("${path.module}/templates/grafana.nomad")
 
   vars = {
     region     = var.aws_region
     az         = jsonencode(coalescelist(var.nomad_azs, data.aws_availability_zones.available.names))
     policies   = jsonencode(var.grafana_vault_policies)
     node_class = var.nomad_clients_node_class
-    count      = var.grafana_count
+    job_count  = var.grafana_count
     job_name   = var.grafana_job_name
 
     grafana_fqdns       = join(",", var.grafana_fqdns)
@@ -54,7 +54,7 @@ data "template_file" "grafana_jobspec" {
     grafana_entrypoints = join(",", var.grafana_entrypoints)
 
     grafana_conf_template            = data.template_file.grafana_config.rendered
-    grafana_dashboards               = "${file("${path.module}/templates/dashboards.yml")}"
+    grafana_dashboards               = file("${path.module}/templates/dashboards.yml")
     cloudwatch_datasource            = data.template_file.grafana_datasource_cloudwatch.rendered
     prometheus_datasource            = data.template_file.prometheus_datasource.rendered
     grafana_dashboard_aws_billing    = data.template_file.grafana_dashboard_aws_billing.rendered
@@ -66,7 +66,7 @@ data "template_file" "grafana_jobspec" {
 }
 
 data "template_file" "grafana_datasource_cloudwatch" {
-  template = "${local.aws_cloudwatch_datasource ? file("${path.module}/templates/datasources/cloudwatch.yml"): ""}"
+  template = local.aws_cloudwatch_datasource ? file("${path.module}/templates/datasources/cloudwatch.yml") : ""
 
   vars = {
     name       = var.cloudwatch_datasource_name
@@ -76,7 +76,7 @@ data "template_file" "grafana_datasource_cloudwatch" {
 }
 
 data "template_file" "prometheus_datasource" {
-  template = "${var.prometheus_service != "" ? file("${path.module}/templates/datasources/prometheus.yml"): ""}"
+  template = var.prometheus_service != "" ? file("${path.module}/templates/datasources/prometheus.yml") : ""
 
   vars = {
     name    = var.prometheus_datasource_name
@@ -85,7 +85,7 @@ data "template_file" "prometheus_datasource" {
 }
 
 data "template_file" "grafana_dashboard_aws_billing" {
-  template = "${local.aws_cloudwatch_datasource && var.aws_billing_dashboard ? file("${path.module}/templates/dashboards/aws-billing.json"): ""}"
+  template = local.aws_cloudwatch_datasource && var.aws_billing_dashboard ? file("${path.module}/templates/dashboards/aws-billing.json") : ""
 
   vars = {
     cloudwatch_data_source_name = var.cloudwatch_datasource_name
@@ -93,7 +93,7 @@ data "template_file" "grafana_dashboard_aws_billing" {
 }
 
 data "template_file" "grafana_dashboard_aws_cloudwatch" {
-  template = "${local.aws_cloudwatch_datasource && var.aws_cloudwatch_dashboard ? file("${path.module}/templates/dashboards/aws-cloudwatch.json"): ""}"
+  template = local.aws_cloudwatch_datasource && var.aws_cloudwatch_dashboard ? file("${path.module}/templates/dashboards/aws-cloudwatch.json") : ""
 
   vars = {
     cloudwatch_data_source_name = var.cloudwatch_datasource_name
