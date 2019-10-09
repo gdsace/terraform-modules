@@ -8,7 +8,7 @@ resource "vault_aws_secret_backend_role" "logs" {
   name    = var.log_vault_role
   backend = var.vault_sts_path
 
-  policy_arn = aws_iam_policy.logs_s3.arn
+  policy_arn = aws_iam_policy.logs_s3.*.arn[0]
 }
 
 resource "vault_policy" "logs" {
