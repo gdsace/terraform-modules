@@ -1,11 +1,11 @@
 provider "template" {
   # See: https://github.com/terraform-providers/terraform-provider-template/blob/v2.0.0/CHANGELOG.md#200-january-14-2019
   # Need to pin the minimum version for templates/fluent.conf
-  version = "~> 2.0"
+  version = "~> 2.1.1"
 }
 
 data "template_file" "fluentd_tf_rendered_conf" {
-  template = "${file("${path.module}/templates/fluent.conf")}"
+  template = file("${path.module}/templates/fluent.conf")
 
   vars = {
     elasticsearch_hostname = var.elasticsearch_hostname
@@ -32,7 +32,7 @@ data "template_file" "fluentd_tf_rendered_conf" {
 data "aws_availability_zones" "available" {}
 
 data "template_file" "fluentd_jobspec" {
-  template = "${file("${path.module}/templates/fluentd.nomad")}"
+  template = file("${path.module}/templates/fluentd.nomad")
 
   vars = {
     region = var.aws_region
