@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "es_slow_index_log" {
       "logs:CreateLogStream",
     ]
 
-    resources = local.cloudwatch_log_group_arn
+    resources = [local.cloudwatch_log_group_arn]
 
     principals {
       type        = "Service"
