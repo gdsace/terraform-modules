@@ -18,7 +18,7 @@ resource "vault_policy" "logs" {
   name = var.log_vault_policy
 
   policy = <<EOF
-path ${local.aws_creds_path} {
+path "${local.aws_creds_path}" {
   capabilities = ["read"]
 }
 EOF
