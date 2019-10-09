@@ -33,6 +33,6 @@ resource "aws_lb_listener_rule" "redirect" {
 
   condition {
     field  = "host-header"
-    values = [aws_route53_record.redirect.fqdn]
+    values = aws_route53_record.redirect.*.fqdn
   }
 }
