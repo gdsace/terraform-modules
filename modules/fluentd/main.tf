@@ -50,7 +50,7 @@ data "template_file" "fluentd_jobspec" {
     fluentd_conf_template = data.template_file.fluentd_tf_rendered_conf.rendered
     fluentd_conf_file     = var.fluentd_conf_file
 
-    vault_policy = vault_policy.logs.name
+    vault_policy = var.logs_s3_enabled ? vault_policy.logs.*.name[0] : ""
     aws_path     = local.aws_creds_path
 
     additional_blocks = var.additional_blocks
