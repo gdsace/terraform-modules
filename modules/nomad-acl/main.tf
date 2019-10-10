@@ -37,7 +37,7 @@ data "template_file" "vault_configuration" {
 EOF
 
   vars = {
-    token   = nomad_acl_token.management.secret_id
+    token   = nomad_acl_token.management.*.secret_id[0]
     address = var.nomad_address
   }
 }
