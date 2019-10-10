@@ -99,11 +99,11 @@ resource "consul_key_prefix" "core_integration" {
   count       = var.core_integration ? 1 : 0
   path_prefix = "${var.consul_key_prefix}nomad-vault-integration/"
 
-  subkeys {
-    "enabled"               = "yes"
-    "allow_unauthenticated" = var.allow_unauthenticated
-    "nomad_server_role"     = var.nomad_server_role
-    "nomad_cluster_role"    = var.nomad_cluster_role
-    "README"                = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/nomad-vault-integration"
+  subkeys = {
+    enabled               = "yes"
+    allow_unauthenticated = var.allow_unauthenticated
+    nomad_server_role     = var.nomad_server_role
+    nomad_cluster_role    = var.nomad_cluster_role
+    README                = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/nomad-vault-integration"
   }
 }
