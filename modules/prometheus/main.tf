@@ -130,6 +130,6 @@ module "consul_gossip" {
   source = "github.com/hashicorp/terraform-aws-consul//modules/consul-client-security-group-rules?ref=v0.7.3"
 
   security_group_id                  = aws_security_group.prometheus.id
-  allowed_inbound_cidr_blocks        = data.aws_vpc.selected.cidr_block
-  allowed_inbound_security_group_ids = var.consul_security_group_id
+  allowed_inbound_cidr_blocks        = [data.aws_vpc.selected.cidr_block]
+  allowed_inbound_security_group_ids = [var.consul_security_group_id]
 }
