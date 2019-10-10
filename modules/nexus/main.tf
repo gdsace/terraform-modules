@@ -15,10 +15,10 @@ resource "aws_instance" "nexus" {
   user_data = data.template_file.user_data.rendered
 
   associate_public_ip_address = var.associate_public_ip_address
-  vpc_security_group_ids      = aws_security_group.nexus.id
+  vpc_security_group_ids      = [aws_security_group.nexus.id]
   iam_instance_profile        = aws_iam_instance_profile.nexus.name
-  tags                        = merge(var.tags, map("Name", "${var.name))}"
-  volume_tags                 = merge(var.tags, map("Name", "${var.name))}"
+  tags                        = merge(var.tags, map("Name", var.name))
+  volume_tags                 = merge(var.tags, map("Name", var.name))
 
   root_block_device {
     volume_type = "gp2"
@@ -35,7 +35,7 @@ resource "aws_volume_attachment" "data" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("${path.module}/files/user_data.sh")}"
+  template = file("${path.module}/files/user_data.sh")
 
   vars = {
     service_type = var.server_type
@@ -89,7 +89,7 @@ resource "aws_security_group" "nexus" {
   description = "Security group for Nexus server"
   vpc_id      = data.aws_subnet.selected.vpc_id
 
-  tags = merge(var.tags, map("Name", "${var.name))}"
+  tags = merge(var.tags, map("Name", var.name))
 }
 
 resource "aws_security_group_rule" "ssh_ingress" {
@@ -131,9 +131,9 @@ resource "aws_security_group_rule" "egress" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "consul_gossip" {
-  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-client-security-group-rules?ref=v0.3.5"
+  source = "github.com/hashicorp/terraform-aws-consul//modules/consul-client-security-group-rules?ref=v0.7.3"
 
   security_group_id                  = aws_security_group.nexus.id
-  allowed_inbound_cidr_blocks        = data.aws_vpc.selected.cidr_block
-  allowed_inbound_security_group_ids = var.consul_security_group_id
+  allowed_inbound_cidr_blocks        = [data.aws_vpc.selected.cidr_block]
+  allowed_inbound_security_group_ids = [var.consul_security_group_id]
 }
