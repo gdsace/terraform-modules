@@ -13,11 +13,11 @@ module "vault_ssh" {
 
 resource "consul_key_prefix" "consul" {
   count      = var.vault_ssh_enabled ? 1 : 0
-  depends_on = ["module.vault_ssh"]
+  depends_on = [module.vault_ssh]
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/${var.server_type}/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.vault_ssh_path
   }
