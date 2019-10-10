@@ -17,7 +17,7 @@ resource "consul_key_prefix" "consul" {
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/${var.server_type}/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.vault_ssh_path
   }

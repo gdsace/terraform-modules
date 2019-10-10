@@ -33,7 +33,7 @@ resource "consul_key_prefix" "consul" {
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/consul/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.consul_path
   }
@@ -61,7 +61,7 @@ resource "consul_key_prefix" "vault" {
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/vault/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.vault_path
   }
@@ -89,7 +89,7 @@ resource "consul_key_prefix" "nomad_server" {
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/nomad_server/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.nomad_server_path
   }
@@ -117,7 +117,7 @@ resource "consul_key_prefix" "nomad_client" {
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/nomad_client/"
 
-  subkeys {
+  subkeys = {
     enabled = "yes"
     path    = var.nomad_client_path
   }
