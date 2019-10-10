@@ -15,17 +15,15 @@ locals {
 resource "vault_generic_secret" "pki_config" {
   path = "${vault_mount.pki.path}/config/urls"
 
-  data_json = <<EOF
-{
-  "issuing_certificates": ${jsonencode(local.ca_endpoints)},
-  "crl_distribution_points": ${jsonencode(local.crl_distribution_points)},
-  "ocsp_servers": []
-}
-EOF
+  data_json = jsonencode({
+    crl_distribution_points = local.crl_distribution_points
+    issuing_certificates    = local.ca_endpoints
+    ocsp_servers            = []
+  })
 }
 
 data "template_file" "ca" {
-  template = "${file("${path.module}/templates/ca.json")}"
+  template = file("${path.module}/templates/ca.json")
 
   vars = {
     ca                   = jsonencode(var.ca_cn)
