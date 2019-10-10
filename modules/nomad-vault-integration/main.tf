@@ -8,7 +8,7 @@
 # The token your EC2 instances are given should have this policy attached.
 ################################################
 data "template_file" "nomad_server_policy" {
-  template = "${file("${path.module}/templates/nomad_server_policy.hcl")}"
+  template = file("${path.module}/templates/nomad_server_policy.hcl")
 
   vars = {
     nomad_server_role = var.nomad_server_role
@@ -30,7 +30,7 @@ locals {
 }
 
 data "template_file" "nomad_server_role" {
-  template = "${file("${path.module}/templates/nomad_server_role.json")}"
+  template = file("${path.module}/templates/nomad_server_role.json")
 
   vars = {
     allowed_policies  = join(", ", formatlist("\"%s\"", local.nomad_server_allowed_policies))
@@ -48,7 +48,7 @@ resource "vault_generic_secret" "nomad_server_role" {
 # This policy allows Nomad servers to create child tokens for jobs
 ################################################
 data "template_file" "nomad_cluster_policy" {
-  template = "${file("${path.module}/templates/nomad_cluster_policy.hcl")}"
+  template = file("${path.module}/templates/nomad_cluster_policy.hcl")
 
   vars = {
     nomad_cluster_role = var.nomad_cluster_role
@@ -71,7 +71,7 @@ locals {
 }
 
 data "template_file" "nomad_cluster_role" {
-  template = "${file("${path.module}/templates/nomad_cluster_role.json")}"
+  template = file("${path.module}/templates/nomad_cluster_role.json")
 
   vars = {
     disallowed_policies = join(", ", formatlist("\"%s\"", local.nomad_cluster_disallowed_policies))
