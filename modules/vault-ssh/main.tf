@@ -29,7 +29,7 @@ module "consul" {
 
 resource "consul_key_prefix" "consul" {
   count      = var.consul_enable ? 1 : 0
-  depends_on = ["module.consul"]
+  depends_on = [module.consul]
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/consul/"
 
@@ -57,7 +57,7 @@ module "vault" {
 
 resource "consul_key_prefix" "vault" {
   count      = var.vault_enable ? 1 : 0
-  depends_on = ["module.vault"]
+  depends_on = [module.vault]
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/vault/"
 
@@ -85,7 +85,7 @@ module "nomad_server" {
 
 resource "consul_key_prefix" "nomad_server" {
   count      = var.nomad_server_enable ? 1 : 0
-  depends_on = ["module.nomad_server"]
+  depends_on = [module.nomad_server]
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/nomad_server/"
 
@@ -113,7 +113,7 @@ module "nomad_client" {
 
 resource "consul_key_prefix" "nomad_client" {
   count      = var.nomad_client_enable ? 1 : 0
-  depends_on = ["module.nomad_client"]
+  depends_on = [module.nomad_client]
 
   path_prefix = "${var.consul_key_prefix}vault-ssh/nomad_client/"
 
