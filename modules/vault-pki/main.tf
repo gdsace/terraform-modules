@@ -60,9 +60,9 @@ resource "consul_key_prefix" "core_integration" {
   count       = var.core_integration ? 1 : 0
   path_prefix = "${var.consul_key_prefix}vault-pki/"
 
-  subkeys {
-    "enabled" = "yes"
-    "ca"      = jsonencode(formatlist("%s/pem", local.ca_endpoints))
-    "README"  = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/vault-pki"
+  subkeys = {
+    enabled = "yes"
+    ca      = jsonencode(formatlist("%s/pem", local.ca_endpoints))
+    README  = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/vault-pki"
   }
 }

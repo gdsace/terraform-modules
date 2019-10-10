@@ -7,7 +7,7 @@ locals {
 # You need to include this policy with the tokens issued to Nomad Clients
 ################################################
 data "template_file" "policy" {
-  template = "${file("${path.module}/templates/policy.hcl")}"
+  template = file("${path.module}/templates/policy.hcl")
 
   vars = {
     kv_path = local.kv_path
@@ -51,9 +51,9 @@ resource "consul_key_prefix" "core_integration" {
   count       = var.core_integration ? 1 : 0
   path_prefix = "${var.consul_key_prefix}docker-auth/"
 
-  subkeys {
-    "enabled" = "yes"
-    "path"    = local.kv_path
-    "README"  = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/docker-auth"
+  subkeys = {
+    enabled = "yes"
+    path    = local.kv_path
+    README  = "This is used for integration with the `core` module. See https://github.com/GovTechSG/terraform-modules/tree/master/modules/docker-auth"
   }
 }

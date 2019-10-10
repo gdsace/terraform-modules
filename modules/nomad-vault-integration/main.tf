@@ -66,7 +66,7 @@ resource "vault_policy" "nomad_cluster_policy" {
 # Token role for Nomad servers to create token
 ################################################
 locals {
-  nomad_cluster_disallowed_defaults = vault_policy.nomad_cluster_policy.name, vault_policy.nomad_server_policy.name
+  nomad_cluster_disallowed_defaults = [vault_policy.nomad_cluster_policy.name, vault_policy.nomad_server_policy.name]
   nomad_cluster_disallowed_policies = sort(concat(local.nomad_cluster_disallowed_defaults, var.nomad_cluster_disallowed_policies))
 }
 
