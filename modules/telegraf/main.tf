@@ -18,7 +18,7 @@ EOF
 }
 
 module "consul" {
-  source = "server_type"
+  source = "./server_type"
 
   server_type = "consul"
   enabled     = var.consul_enabled
@@ -34,7 +34,7 @@ module "consul" {
 }
 
 module "nomad_server" {
-  source = "server_type"
+  source = "./server_type"
 
   server_type = "nomad_server"
   enabled     = var.nomad_server_enabled
@@ -50,7 +50,7 @@ module "nomad_server" {
 }
 
 module "nomad_client" {
-  source = "server_type"
+  source = "./server_type"
 
   server_type = "nomad_client"
   enabled     = var.nomad_client_enabled
@@ -66,7 +66,7 @@ module "nomad_client" {
 }
 
 module "vault" {
-  source = "server_type"
+  source = "./server_type"
 
   server_type = "vault"
   enabled     = var.vault_enabled
