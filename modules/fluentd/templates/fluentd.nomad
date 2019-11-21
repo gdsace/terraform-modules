@@ -1,8 +1,7 @@
 job "fluentd" {
   constraint {
-    attribute = "$${node.class}"
-    operator  = "${node_class_operator}"
-    value     = "${node_class}"
+    operator  = "distinct_hosts"
+    value     = "true"
   }
 
   datacenters = ${az}
