@@ -21,7 +21,7 @@ job "fluentd" {
 
     ephemeral_disk {
       migrate = true
-      size    = "1024"
+      size    = "${disk}"
       sticky  = true
     }
 
@@ -106,7 +106,7 @@ EOH
         memory = ${memory}
 
         network {
-          mbits = 100
+          mbits = "${mbits}"
 
           port "forwarder" {
             static = ${fluentd_port}
