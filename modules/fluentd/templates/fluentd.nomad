@@ -20,9 +20,9 @@ job "fluentd" {
     count = ${fluentd_count}
 
     ephemeral_disk {
-      migrate = false
+      migrate = true
       size    = "${disk}"
-      sticky  = false
+      sticky  = true
     }
 
     vault {
@@ -37,6 +37,7 @@ job "fluentd" {
       # Nomad kills jobs with SIGINT. Fluentd will try to flush
       # https://docs.fluentd.org/v0.12/articles/signals
       # Give it time to flush. This is the max on agents
+      kill_signal  = "SIGHUP"
       kill_timeout = "30s"
 
       config {
