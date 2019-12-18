@@ -20,9 +20,9 @@ job "fluentd" {
     count = ${fluentd_count}
 
     ephemeral_disk {
-      migrate = true
+      migrate = false
       size    = "${disk}"
-      sticky  = true
+      sticky  = false
     }
 
     vault {
