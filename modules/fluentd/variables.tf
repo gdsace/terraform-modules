@@ -71,6 +71,16 @@ variable "cpu" {
   default     = 3000
 }
 
+variable "disk" {
+  description = "Disk in MB allocated for the nomad job"
+  default     = 10240
+}
+
+variable "mbits" {
+  description = "Mbits of network allocated for the nomad job"
+  default     = 100
+}
+
 variable "memory" {
   description = "Memory in MB allocated for the nomad job"
   default     = 512
