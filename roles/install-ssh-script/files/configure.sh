@@ -125,6 +125,7 @@ function generate_config {
 
   # SSH session idle timeout append to sshd config
   echo "ClientAliveInterval 5m    # 5 minutes" >> /etc/ssh/sshd_config
+  echo "ClientAliveCountMax 0     # 0 times" >> /etc/ssh/sshd_config
 
 
   log_info "Restarting SSHD"
