@@ -60,11 +60,11 @@ job "traefik" {
       }
 
       resources {
-        cpu    = 500
-        memory = 512
+        cpu    = ${var.cpu}
+        memory = ${var.memory}
 
         network {
-          mbits = 5
+          mbits = ${var.mbits}
 
           port "http" {
             static = 80
