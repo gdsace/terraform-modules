@@ -29,6 +29,10 @@ data "template_file" "traefik_jobspec" {
     az         = jsonencode(data.aws_availability_zones.available.names)
     node_class = var.nomad_clients_node_class
 
+    cpu    = var.cpu
+    memory = var.memory
+    mbits  = var.mbits
+
     version                  = var.traefik_version
     consul_port              = local.consul_port
     traefik_priority         = var.traefik_priority
