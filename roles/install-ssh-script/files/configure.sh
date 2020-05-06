@@ -123,6 +123,11 @@ function generate_config {
   log_info "Appending configuration to SSHD"
   echo "TrustedUserCAKeys ${certificate_path}" >> /etc/ssh/sshd_config
 
+  # SSH session idle timeout append to sshd config
+  echo "ClientAliveInterval 5m    # 5 minutes" >> /etc/ssh/sshd_config
+  echo "ClientAliveCountMax 0     # 0 times" >> /etc/ssh/sshd_config
+
+
   log_info "Restarting SSHD"
   service sshd restart
 }
