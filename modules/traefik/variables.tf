@@ -193,3 +193,18 @@ variable "lb_internal_access_log_prefix" {
   description = "Prefix in the S3 bucket to log internal Traefik LB access"
   default     = ""
 }
+
+variable "cpu" {
+  description = "CPU in MHz to allocate to each job"
+  default     = 500
+}
+
+variable "memory" {
+  description = "Memory in MB to allocate to each job"
+  default     = 512
+}
+
+variable "mbits" {
+  description = "Network bandwidth in Mbits to allocate to each job"
+  default     = 5
+}
