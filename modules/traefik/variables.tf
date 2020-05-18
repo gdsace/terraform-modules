@@ -91,6 +91,16 @@ variable "internal_lb_incoming_cidr" {
   default     = []
 }
 
+variable "external_idle_timeout" {
+  description = "Number of seconds that a connection across the external lb can idle before it is terminated"
+  default     = 60
+}
+
+variable "internal_idle_timeout" {
+  description = "Number of seconds that a connection across the internal lb can idle before it is terminated"
+  default     = 60
+}
+
 variable "deregistration_delay" {
   description = "Time before an unhealthy Elastic Load Balancer target becomes removed"
   default     = 60

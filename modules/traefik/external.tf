@@ -7,6 +7,8 @@ resource "aws_lb" "external" {
   security_groups = [aws_security_group.external_lb.id]
   subnets         = var.lb_external_subnets
 
+  idle_timeout = var.external_idle_timeout
+
   access_logs {
     enabled = var.lb_external_access_log
     bucket  = var.lb_external_access_log_bucket
