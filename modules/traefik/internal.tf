@@ -8,6 +8,8 @@ resource "aws_lb" "internal" {
   security_groups = [aws_security_group.internal_lb.id]
   subnets         = var.lb_internal_subnets
 
+  idle_timeout = var.internal_idle_timeout
+
   access_logs {
     enabled = var.lb_internal_access_log
     bucket  = var.lb_internal_access_log_bucket
