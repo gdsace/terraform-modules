@@ -1,0 +1,19 @@
+---
+# The name of ssh daemon
+sshd: ssh
+
+# Where is ssh config is located at
+sshd_config: /etc/ssh/sshd_config
+
+# Where is password file is located at
+etc_passwd: /etc/passwd
+
+# Where is sudoers file is located at
+etc_sudoers: /etc/sudoers
+
+# Where is securetty file is located at
+etc_securetty: /etc/securetty
+
+
+# Where is su pam file is located at
+etc_pam_su: /etc/pam.d/su

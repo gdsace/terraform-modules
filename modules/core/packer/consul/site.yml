@@ -58,3 +58,6 @@
   - name: Set default timezone
     include_role:
       name: "{{ playbook_dir }}/../../../../roles/timezone"
+  - name: Harden the server
+    include_role:
+      name: "{{ playbook_dir }}/../../../../roles/server-hardening"
