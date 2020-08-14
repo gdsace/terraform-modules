@@ -49,7 +49,7 @@ resource "vault_generic_secret" "pki_ca" {
 
   lifecycle {
     # This is a hack. Reconfiguring this will overwrite the CA
-    ignore_changes = ["*"]
+    ignore_changes = all
   }
 }
 
