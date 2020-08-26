@@ -1,0 +1,46 @@
+- name: Generate new password
+  command:  openssl rand -base64 14
+  register: newpass
+
+- name: Change password for root user
+  become: true # do this as root
+  user:
+    name: root
+    password: "{{ '{{ newpass.stdout }}' | password_hash('sha512') }}"
+
+
+- name: Disable remote root login
+  become: true
+  lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
+
+- name: Disable root account
+  become: true
+  lineinfile: dest={{ etc_passwd }} regexp="^#?root:" line="root:x:0:0:root:/root:/usr/sbin/nologin"
+
+- name: Disable root access
+  become: true
+  copy: content='' dest={{ etc_securetty }}
+
+- name: Enable use_pty flag
+  become: true
+  lineinfile: dest={{ etc_sudoers }} regexp="^#?Defaults\s*use_pty" line="Defaults        use_pty" insertbefore='^Defaults'
+
+- name: Log every sudo activity to a separate file
+  become: true
+  lineinfile: dest={{ etc_sudoers }} regexp="^#?Defaults\s*logfile" line='Defaults        logfile="/var/log/sudo.log"' insertbefore='^Defaults'
+
+- name: Disable su
+  become: true
+  lineinfile: dest={{ etc_pam_su }} regexp="^#?auth\s*requisite\s*pam_deny.so" line="auth       requisite  pam_deny.so"  insertafter='^auth'
+
+- name: Ensure group docker exists
+  group:
+    name: docker
+    state: present
+
+- name: Add the user 'ubuntu' in  group of 'docker'
+  become: true
+  user:
+    name: ubuntu
+    group: docker
+

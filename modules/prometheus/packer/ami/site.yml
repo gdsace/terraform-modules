@@ -139,3 +139,6 @@
       dest: /opt/prometheus
       mode: 0755
     become: yes
+  - name: Harden the server
+    include_role:
+      name: "{{ playbook_dir }}/../../../../roles/server-hardening"
