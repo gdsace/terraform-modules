@@ -14,6 +14,8 @@ etc_sudoers: /etc/sudoers
 # Where is securetty file is located at
 etc_securetty: /etc/securetty
 
-
 # Where is su pam file is located at
 etc_pam_su: /etc/pam.d/su
+
+# Flag to check if docker installed
+is_docker_installed: false

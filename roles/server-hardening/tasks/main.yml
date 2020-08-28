@@ -34,11 +34,13 @@
   lineinfile: dest={{ etc_pam_su }} regexp="^#?auth\s*requisite\s*pam_deny.so" line="auth       requisite  pam_deny.so"  insertafter='^auth'
 
 - name: Ensure group docker exists
+  when: is_docker_installed == "true"
   group:
     name: docker
     state: present
 
 - name: Add the user 'ubuntu' in  group of 'docker'
+  when: is_docker_installed == "true"
   become: true
   user:
     name: ubuntu
