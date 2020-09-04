@@ -28,6 +28,7 @@
         "consul_integration_prefix": "terraform/",
         "netshare_version": "0.36",
         "docker_enable_efs": "false",
+        "is_docker_installed": "true",
         "timezone": "Asia/Singapore",
         "extra_vars": "{}"
     },
@@ -119,6 +120,10 @@
                 "timezone={{user `timezone`}}",
                 "-e",
                 "ansible_python_interpreter=\"$(command -v python3)\"",
+                "-e",
+                "is_docker_installed={{user `is_docker_installed`}}",
+                "-e",
+                "falco_slack_output_webhook={{user `falco_slack_output_webhook`}}",
                 "-e",
                 "{{user `extra_vars`}}"
             ]

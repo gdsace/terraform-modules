@@ -26,6 +26,7 @@
     netshare_version: 0.36
     docker_enable_efs: false
     timezone: "Asia/Singapore"
+    falco_slack_output_webhook: ""
   tasks:
   - name: Upgrade all packages to the latest version
     apt:
@@ -91,6 +92,9 @@
   - name: Set default timezone
     include_role:
       name: "{{ playbook_dir }}/../../../../roles/timezone"
+  - name: Install Falco 
+    include_role:
+      name: "{{ playbook_dir }}/../../../../roles/install-falco"
   - name: Harden the server
     include_role:
       name: "{{ playbook_dir }}/../../../../roles/server-hardening"
