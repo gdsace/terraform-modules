@@ -28,6 +28,7 @@
         "consul_integration_prefix": "terraform/",
         "netshare_version": "0.36",
         "docker_enable_efs": "false",
+        "is_docker_installed": "true",
         "timezone": "Asia/Singapore",
         "extra_vars": "{}"
     },
@@ -115,6 +116,8 @@
                 "consul_host={{user `consul_host`}} consul_port={{user `consul_port`}} consul_scheme={{user `consul_scheme`}} consul_token={{user `consul_token`}} consul_integration_prefix={{user `consul_integration_prefix`}}",
                 "-e",
                 "netshare_version={{user `netshare_version`}} docker_enable_efs={{user `docker_enable_efs`}}",
+                "-e",
+                "is_docker_installed={{user `is_docker_installed`}}",
                 "-e",
                 "timezone={{user `timezone`}}",
                 "-e",
