@@ -1,0 +1,2 @@
+#!/bin/sh
+/opt/vault/tailtoslack.sh /var/log/auth.log  "{{ vault_slack_output_webhook | b64decode  | trim }}" > /dev/null  2>&1

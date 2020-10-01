@@ -27,6 +27,7 @@
         "consul_scheme": "https",
         "consul_token": "",
         "consul_integration_prefix": "terraform/",
+        "vault_slack_output_webhook": "",
         "timezone": "Asia/Singapore"
     },
     "builders": [
@@ -105,6 +106,8 @@
                 "ca_certificate={{user `ca_certificate`}}",
                 "-e",
                 "consul_host={{user `consul_host`}} consul_port={{user `consul_port`}} consul_scheme={{user `consul_scheme`}} consul_token={{user `consul_token`}} consul_integration_prefix={{user `consul_integration_prefix`}}",
+                "-e",
+                "vault_slack_output_webhook={{user `vault_slack_output_webhook`}}",
                 "-e",
                 "timezone={{user `timezone`}}",
                 "-e",

@@ -1,0 +1,12 @@
+[Unit]
+Description=Vault alert daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/vault/vaultalert.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

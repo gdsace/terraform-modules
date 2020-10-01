@@ -36,3 +36,31 @@
     dest: "/opt/vault/bin/configure"
     mode: 0755
   become: yes
+- name: Copy script to send stack alert 
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/vault/"
+    owner: vault
+    group: vault
+    mode: 0755
+  with_items:
+    - "{{ role_path }}/files/tailtoslack.sh"
+  become: yes
+- name: Copy vault alert Scripts
+  template:
+    src: "{{ role_path }}/templates/vaultalert.sh.j2"
+    dest: /opt/vault/vaultalert.sh
+    owner: vault
+    group: vault
+    mode: 0755
+  become: yes
+- name: Set Vault alert service systemd
+  copy:
+    src: "{{ role_path }}/files/vaultalert.service"
+    dest: "/etc/systemd/system/"
+  become: yes
+- name: enable service
+  systemd:
+    name: vaultalert.service
+    enabled: yes
+  become: yes
