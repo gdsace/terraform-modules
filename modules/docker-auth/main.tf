@@ -43,9 +43,9 @@ resource "vault_generic_secret" "registries" {
 ################################################
 resource "consul_key_prefix" "core_integration" {
   depends_on = [
-    "vault_mount.kv",
-    "vault_policy.policy",
-    "vault_generic_secret.registries",
+    vault_mount.kv,
+    vault_policy.policy,
+    vault_generic_secret.registries,
   ]
 
   count       = var.core_integration ? 1 : 0

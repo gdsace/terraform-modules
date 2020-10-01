@@ -90,10 +90,10 @@ resource "vault_generic_secret" "nomad_cluster_role" {
 ################################################
 resource "consul_key_prefix" "core_integration" {
   depends_on = [
-    "vault_policy.nomad_server_policy",
-    "vault_policy.nomad_cluster_policy",
-    "vault_generic_secret.nomad_server_role",
-    "vault_generic_secret.nomad_cluster_role",
+    vault_policy.nomad_server_policy,
+    vault_policy.nomad_cluster_policy,
+    vault_generic_secret.nomad_server_role,
+    vault_generic_secret.nomad_cluster_role,
   ]
 
   count       = var.core_integration ? 1 : 0
