@@ -20,7 +20,7 @@ EOF
 }
 
 module "vault" {
-  source = "github.com/hashicorp/terraform-aws-vault.git//modules/vault-cluster?ref=v0.13.3"
+  source = "github.com/hashicorp/terraform-aws-vault.git//modules/vault-cluster?ref=v0.14.0"
 
   cluster_name  = var.vault_cluster_name
   cluster_size  = var.vault_cluster_size
